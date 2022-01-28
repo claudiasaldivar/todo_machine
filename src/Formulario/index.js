@@ -1,11 +1,8 @@
-import React, {useContext, useState} from 'react';
-import { TodoContext } from '../TodoContext'
+import React, { useState} from 'react';
 import './form.css'
 
-function Formulario(){
+function Formulario({addTodos, setOpenModal}){
     const [text, setText] = useState('')
-    const value = useContext(TodoContext)
-    const {addTodos, setOpenModal} = value 
 
     const onWrite = (e) => {
         setText(e.target.value)

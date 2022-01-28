@@ -1,14 +1,15 @@
-import React, { createContext, useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
+import React, { useState } from 'react';
 import { useLocalStorage } from './useLocalStorage';
 
-const TodoContext = createContext();
-
-function TodoProvider(props) {
+function useTodos(props) {
 
     const {
         item: todos, 
         loading,
         error, 
+        sincronize,
         saveItem: saveTodos
       } = useLocalStorage('TODOS_V1', [])
       
@@ -65,27 +66,27 @@ function TodoProvider(props) {
       
       }
       
-      // useEffect(() => {
-      
-      // }, [])
-    return(
-        <TodoContext.Provider value={{
-            error,
-            loading,
-            totalTodos,
-            completedTodos,
-            search,
-            openModal,
-            searchedTodos,
-            setSearch,
-            setOpenModal,
-            completeTodo,
-            deleteTodo,
-            addTodos
-        }}>
-            {props.children}
-        </TodoContext.Provider>
-    )
-}
+      const states = {
+        error,
+        loading,
+        totalTodos,
+        completedTodos,
+        search,
+        openModal,
+        searchedTodos,
+      }
 
-export { TodoContext, TodoProvider}
+      const updates = {
+        setSearch,
+        setOpenModal,
+        completeTodo,
+        deleteTodo,
+        addTodos,
+        sincronize
+      }
+    return{      
+      states,
+      updates
+    }
+}
+export { useTodos }
